@@ -47,12 +47,15 @@ public class UserService {
     }
 
     public Integer updateWithAdmin(String userid, User user) {
-        User oldUser = userRepository.findById(userid).get();
-        if (oldUser.getRole().equals("admin")) {
-            if (user.getAge() != null) oldUser.setAge(user.getAge());
-            if (user.getEmail() != null) oldUser.setEmail(user.getEmail());
-            if (user.getPassword() != null) oldUser.setPassword(user.getPassword());
-            if (user.getJoiningYear() != null) oldUser.setJoiningYear(user.getJoiningYear());
+        Optional<User> oldUser = userRepository.findById(userid);
+        if(oldUser.isEmpty()){
+            return -1;
+        }
+        if (oldUser.get().getRole().equals("admin")) {
+            if (user.getAge() != null) oldUser.get().setAge(user.getAge());
+            if (user.getEmail() != null) oldUser.get().setEmail(user.getEmail());
+            if (user.getPassword() != null) oldUser.get().setPassword(user.getPassword());
+            if (user.getJoiningYear() != null) oldUser.get().setJoiningYear(user.getJoiningYear());
             userRepository.save(oldUser);
             return 1;
         }
