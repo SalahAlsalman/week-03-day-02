@@ -56,7 +56,7 @@ public class UserService {
             if (user.getEmail() != null) oldUser.get().setEmail(user.getEmail());
             if (user.getPassword() != null) oldUser.get().setPassword(user.getPassword());
             if (user.getJoiningYear() != null) oldUser.get().setJoiningYear(user.getJoiningYear());
-            userRepository.save(oldUser);
+            userRepository.save(oldUser.get());
             return 1;
         }
         return -1;
